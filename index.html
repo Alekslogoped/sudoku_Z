@@ -4,25 +4,36 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Загадки Зои</title>
+
 <style>
-:root{--ink:#3f4652;--green:#487f70;--line:#b6c9bc}
+:root{
+  --ink:#3f4652;
+  --green:#487f70;
+  --line:#b6c9bc;
+}
 *{box-sizing:border-box}
 html{width:100%;height:100%}
 body{
-  margin:0;padding:8px;
-  min-height:100vh;min-height:100svh;
-  display:grid;place-items:center;
-  background:#eee9f3;color:var(--ink);
+  margin:0;
+  padding:8px;
+  min-height:100vh;
+  min-height:100svh;
+  display:grid;
+  place-items:center;
+  background:#eee9f3;
+  color:var(--ink);
   font-family:"Trebuchet MS",Arial,sans-serif;
 }
 button,summary{
-  font:inherit;touch-action:manipulation;
+  font:inherit;
+  touch-action:manipulation;
   -webkit-tap-highlight-color:transparent;
 }
 button{cursor:pointer;color:inherit}
 button:disabled{cursor:default}
 button:focus-visible,summary:focus-visible{
-  outline:3px solid #7863b5;outline-offset:2px;
+  outline:3px solid #7863b5;
+  outline-offset:2px;
 }
 .app{
   container-type:inline-size;
@@ -30,65 +41,119 @@ button:focus-visible,summary:focus-visible{
   width:min(1600px,100%,calc((100vh - 16px)*16/9));
   width:min(1600px,100%,calc((100svh - 16px)*16/9));
   aspect-ratio:16/9;
-  overflow:hidden;isolation:isolate;
-  border-radius:18px;background:#faf6ef;
+  overflow:hidden;
+  isolation:isolate;
+  border-radius:18px;
+  background:#faf6ef;
 }
 .background{
-  position:absolute;inset:0;width:100%;height:100%;
-  object-fit:fill;pointer-events:none;user-select:none;z-index:0;
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:fill;
+  pointer-events:none;
+  user-select:none;
+  z-index:0;
 }
 .mascot{
-  position:absolute;left:1%;bottom:6%;
-  width:29%;height:82%;
-  object-fit:contain;object-position:center bottom;
-  pointer-events:none;user-select:none;z-index:2;
+  position:absolute;
+  left:1%;
+  bottom:6%;
+  width:29%;
+  height:82%;
+  object-fit:contain;
+  object-position:center bottom;
+  pointer-events:none;
+  user-select:none;
+  z-index:2;
 }
+
+/* Иллюстрированные кнопки. */
 .tools{
-  position:absolute;right:4%;top:3%;
-  display:flex;align-items:center;gap:8px;z-index:20;
+  position:absolute;
+  right:4%;
+  top:2.5%;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  z-index:20;
 }
-.quiet{
-  border:1px solid #d6cbde;border-radius:11px;
-  background:#fffdf7ed;padding:8px 12px;
-  font-size:clamp(10px,1.1cqw,15px);
-  font-weight:bold;white-space:nowrap;
-  box-shadow:0 2px 4px #55446b10;
+.art-button{
+  display:block;
+  position:relative;
+  width:clamp(100px,13cqw,208px);
+  padding:0;
+  border:0;
+  border-radius:18px;
+  background:transparent;
+  box-shadow:none;
+  line-height:0;
+  transition:transform .15s ease,filter .15s ease;
 }
-.quiet:hover{background:#f2ecfa}
+.art-button img{
+  display:block;
+  width:100%;
+  height:auto;
+  pointer-events:none;
+  user-select:none;
+}
+.art-button:hover{
+  transform:translateY(-2px);
+  filter:brightness(1.04);
+}
+.art-button:active{transform:translateY(1px)}
 .help{position:static}
 .help summary{list-style:none;cursor:pointer}
 .help summary::-webkit-details-marker{display:none}
 .rules{
-  position:absolute;right:0;top:calc(100% + 8px);
-  width:330px;max-width:76cqw;max-height:65cqh;
-  overflow:auto;padding:16px;
-  border:1px solid #d7cddd;border-radius:15px;
-  background:#fffdf6;box-shadow:0 10px 30px #3a315133;
-  font-size:clamp(11px,1.1cqw,15px);line-height:1.5;
+  position:absolute;
+  right:0;
+  top:calc(100% + 8px);
+  width:330px;
+  max-width:76cqw;
+  max-height:65cqh;
+  overflow:auto;
+  padding:16px;
+  border:1px solid #d7cddd;
+  border-radius:15px;
+  background:#fffdf6;
+  box-shadow:0 10px 30px #3a315133;
+  font-size:clamp(11px,1.1cqw,15px);
+  line-height:1.5;
 }
 .rules p{margin:0 0 10px}
 .rules p:last-child{margin:0}
 
-/* Увеличенное игровое поле. */
+/* Увеличенное поле судоку. */
 .board{
-  position:absolute;left:31%;top:16.5%;
-  width:36%;aspect-ratio:1;
+  position:absolute;
+  left:31%;
+  top:16.5%;
+  width:36%;
+  aspect-ratio:1;
   display:grid;
   grid-template-columns:repeat(4,minmax(0,1fr));
   grid-template-rows:repeat(4,minmax(0,1fr));
-  gap:0;padding:clamp(3px,.45cqw,7px);
+  gap:0;
+  padding:clamp(3px,.45cqw,7px);
   border:2px solid #c2cebe;
   border-radius:clamp(10px,1.4cqw,22px);
-  background:var(--line);overflow:hidden;
+  background:var(--line);
+  overflow:hidden;
   box-shadow:0 4px 0 #d8e2d3,0 6px 14px #596e5514;
   z-index:4;
 }
 .cell{
   position:relative;
-  display:flex;align-items:center;justify-content:center;
-  min-width:0;min-height:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-width:0;
+  min-height:0;
   padding:clamp(2px,.3cqw,5px);
-  border:1px solid #dde5d7;border-radius:0;
+  border:1px solid #dde5d7;
+  border-radius:0;
   background:#f7fbf3;
 }
 .cell:nth-child(4n+2){border-right:3px solid var(--line)}
@@ -99,11 +164,18 @@ button:focus-visible,summary:focus-visible{
 .cell.related:not(.given){background:#eaf4eb}
 .cell.selected{
   background:#fff7d8!important;
-  box-shadow:inset 0 0 0 3px #729c88;z-index:1;
+  box-shadow:inset 0 0 0 3px #729c88;
+  z-index:1;
 }
 .cell.given::after{
-  content:"";position:absolute;top:5px;right:5px;
-  width:4px;height:4px;border-radius:50%;background:#bba982;
+  content:"";
+  position:absolute;
+  top:5px;
+  right:5px;
+  width:4px;
+  height:4px;
+  border-radius:50%;
+  background:#bba982;
 }
 .cell.wrong{
   background:#ffe7e3!important;
@@ -112,51 +184,81 @@ button:focus-visible,summary:focus-visible{
 .cell.correct:not(.given){background:#e0f2dc!important}
 .cell:disabled{opacity:1}
 .cell.empty::before{
-  content:"+";font-size:clamp(15px,1.7cqw,27px);color:#bdcdb6;
+  content:"+";
+  font-size:clamp(15px,1.7cqw,27px);
+  color:#bdcdb6;
 }
 .mini{
-  width:100%;height:100%;
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  gap:1px;pointer-events:none;
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:1px;
+  pointer-events:none;
 }
 .mini img{
-  display:block;width:94%;height:94%;
-  min-height:0;object-fit:contain;flex-shrink:1;
+  display:block;
+  width:94%;
+  height:94%;
+  min-height:0;
+  object-fit:contain;
+  flex-shrink:1;
 }
 .caption{
-  display:block;line-height:1.12;
+  display:block;
+  line-height:1.12;
   font-size:clamp(7px,1cqw,16px);
-  font-weight:bold;text-align:center;
+  font-weight:bold;
+  text-align:center;
 }
 .caption span{display:block}
 
-/* Более узкие карточки справа. */
+/* Узкие карточки справа. */
 .choices{
-  position:absolute;left:71%;top:23%;
-  width:19.5%;height:49%;
+  position:absolute;
+  left:71%;
+  top:23%;
+  width:19.5%;
+  height:49%;
   display:grid;
   grid-template-rows:repeat(4,minmax(0,1fr));
-  gap:clamp(4px,.7cqw,10px);z-index:5;
+  gap:clamp(4px,.7cqw,10px);
+  z-index:5;
 }
 .choices-title{
-  position:absolute;left:0;right:0;bottom:100%;
-  margin:0 0 7px;text-align:center;
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:100%;
+  margin:0 0 7px;
+  text-align:center;
   font-size:clamp(9px,1.05cqw,16px);
-  font-weight:bold;color:#817389;
+  font-weight:bold;
+  color:#817389;
 }
 .choice{
-  position:relative;display:flex;align-items:center;
+  position:relative;
+  display:flex;
+  align-items:center;
   gap:clamp(3px,.5cqw,8px);
-  width:100%;height:100%;min-width:0;min-height:0;
+  width:100%;
+  height:100%;
+  min-width:0;
+  min-height:0;
   padding:clamp(3px,.45cqw,7px);
   border:1px solid #d8cddd;
   border-radius:clamp(8px,1cqw,16px);
-  background:#fffdf6;box-shadow:0 2px 0 #e3dbe5;
+  background:#fffdf6;
+  box-shadow:0 2px 0 #e3dbe5;
 }
 .choice img{
-  width:35%;height:100%;object-fit:contain;
-  flex-shrink:0;min-height:0;
+  width:35%;
+  height:100%;
+  object-fit:contain;
+  flex-shrink:0;
+  min-height:0;
 }
 .choice .caption{
   font-size:clamp(8px,1cqw,16px);
@@ -164,71 +266,125 @@ button:focus-visible,summary:focus-visible{
   text-transform:uppercase;
 }
 .choice small{
-  position:absolute;right:6px;top:4px;
-  font-size:clamp(6px,.7cqw,10px);color:#a49aaa;
+  position:absolute;
+  right:6px;
+  top:4px;
+  font-size:clamp(6px,.7cqw,10px);
+  color:#a49aaa;
 }
-.choice:hover:enabled{background:#f0eaf8;border-color:#ad98bf}
+.choice:hover:enabled{
+  background:#f0eaf8;
+  border-color:#ad98bf;
+}
 .choice:disabled{opacity:.5}
 .actions{
-  position:absolute;left:71%;top:75%;
-  width:19.5%;height:5.5%;
-  display:flex;gap:6px;z-index:5;
+  position:absolute;
+  left:71%;
+  top:75%;
+  width:19.5%;
+  height:5.5%;
+  display:flex;
+  gap:6px;
+  z-index:5;
 }
 .erase{
-  width:17%;height:100%;padding:0;
-  border:1px solid #d6cbde;border-radius:8px;
-  background:#fffdf6;font-size:clamp(14px,1.6cqw,24px);
+  width:17%;
+  height:100%;
+  padding:0;
+  border:1px solid #d6cbde;
+  border-radius:8px;
+  background:#fffdf6;
+  font-size:clamp(14px,1.6cqw,24px);
 }
 .primary{
-  flex:1;height:100%;min-width:0;padding:0 6px;
-  border:0;border-radius:8px;
-  background:var(--green);color:white;
-  font-size:clamp(9px,1.15cqw,17px);font-weight:bold;
+  flex:1;
+  height:100%;
+  min-width:0;
+  padding:0 6px;
+  border:0;
+  border-radius:8px;
+  background:var(--green);
+  color:white;
+  font-size:clamp(9px,1.15cqw,17px);
+  font-weight:bold;
   box-shadow:0 2px 0 #365f53;
 }
 .primary:hover:enabled{background:#386d5e}
 .primary:disabled{
-  background:#d7e1d2;color:#899781;box-shadow:none;
+  background:#d7e1d2;
+  color:#899781;
+  box-shadow:none;
 }
 .message{
-  position:absolute;width:1px;height:1px;
-  margin:-1px;padding:0;overflow:hidden;
-  clip-path:inset(50%);white-space:nowrap;border:0;
+  position:absolute;
+  width:1px;
+  height:1px;
+  margin:-1px;
+  padding:0;
+  overflow:hidden;
+  clip-path:inset(50%);
+  white-space:nowrap;
+  border:0;
 }
 .asset-warning{
-  position:absolute;left:30%;right:3%;bottom:1%;
-  z-index:30;margin:0;padding:6px 10px;
-  border-radius:9px;background:#fff0e7;color:#9d4638;
+  position:absolute;
+  left:30%;
+  right:3%;
+  bottom:1%;
+  z-index:30;
+  margin:0;
+  padding:6px 10px;
+  border-radius:9px;
+  background:#fff0e7;
+  color:#9d4638;
   font-size:clamp(9px,1cqw,14px);
-  overflow-wrap:anywhere;max-height:18%;overflow:auto;
+  overflow-wrap:anywhere;
+  max-height:18%;
+  overflow:auto;
 }
-.choice,.cell{user-select:none;-webkit-user-select:none}
+.choice,.cell{
+  user-select:none;
+  -webkit-user-select:none;
+}
 .choice:enabled,.cell:not(.given):not(.empty):enabled{
-  touch-action:none;cursor:grab;
+  touch-action:none;
+  cursor:grab;
 }
 .choice>*,.cell>*{pointer-events:none}
 body.dragging,body.dragging *{cursor:grabbing!important}
 .drag-source{opacity:.35!important}
 .cell.drop-target{
   background:#def5e8!important;
-  box-shadow:inset 0 0 0 3px #399471;z-index:2;
+  box-shadow:inset 0 0 0 3px #399471;
+  z-index:2;
 }
 .cell.drop-blocked{
-  box-shadow:inset 0 0 0 3px #cf8b77;z-index:2;
+  box-shadow:inset 0 0 0 3px #cf8b77;
+  z-index:2;
 }
 .drag-ghost{
-  position:fixed;top:0;left:0;aspect-ratio:1;
-  padding:6px;border:2px solid #94b9a2;border-radius:13px;
-  background:#fffdf5;box-shadow:0 12px 30px #304c493b;
-  pointer-events:none;z-index:1000;
-  will-change:transform;opacity:.96;
+  position:fixed;
+  top:0;
+  left:0;
+  aspect-ratio:1;
+  padding:6px;
+  border:2px solid #94b9a2;
+  border-radius:13px;
+  background:#fffdf5;
+  box-shadow:0 12px 30px #304c493b;
+  pointer-events:none;
+  z-index:1000;
+  will-change:transform;
+  opacity:.96;
 }
 .victory .board{animation:win .65s ease}
 .victory .mascot{animation:hop .65s ease}
 @keyframes win{
   50%{box-shadow:0 0 0 5px #d7b4e1,0 10px 25px #bfcbb6}
 }
-@keyframes hop{50%{transform:translateY(-10px)}}
+@keyframes hop{
+  50%{transform:translateY(-10px)}
+}
 [hidden]{display:none!important}
 @media(max-width:700px){
   body{padding:4px}
@@ -238,13 +394,16 @@ body.dragging,body.dragging *{cursor:grabbing!important}
     border-radius:10px;
   }
   .tools{gap:4px}
-  .quiet{padding:5px 7px;font-size:9px}
+  .art-button{width:clamp(78px,16cqw,112px)}
   .board{border-width:1px}
   .cell{border-width:1px}
   .cell:nth-child(4n+2){border-right-width:2px}
   .cell:nth-child(n+5):nth-child(-n+8){border-bottom-width:2px}
   .cell.given::after{
-    width:3px;height:3px;top:3px;right:3px;
+    width:3px;
+    height:3px;
+    top:3px;
+    right:3px;
   }
   .choices-title{margin-bottom:4px}
   .rules{padding:10px;max-height:65svh}
@@ -255,8 +414,8 @@ body.dragging,body.dragging *{cursor:grabbing!important}
 }
 </style>
 </head>
-<body>
 
+<body>
 <main class="app" id="app" aria-label="Судоку с Зоей">
   <img class="background" id="background" alt="" draggable="false">
   <img class="mascot" id="mascot"
@@ -264,7 +423,9 @@ body.dragging,body.dragging *{cursor:grabbing!important}
 
   <div class="tools">
     <details class="help" id="help">
-      <summary class="quiet">Как играть</summary>
+      <summary class="art-button" aria-label="Как играть">
+        <img id="help-art" alt="Как играть" draggable="false">
+      </summary>
       <div class="rules">
         <p>В каждой строке, каждом столбце и каждом квадрате
           2 × 2 должны быть четыре разные карточки.</p>
@@ -275,13 +436,15 @@ body.dragging,body.dragging *{cursor:grabbing!important}
           и стирать кнопкой ⌫.</p>
         <p>Заполни поле и нажми «Проверить».
           Красные клетки подскажут, где есть повторения.</p>
-        <p>Можно также выбрать клетку нажатием и нажать карточку
-          справа. Клавиши 1–4 выбирают карточку,
-          стрелки — клетку, Delete стирает, Enter проверяет.</p>
+        <p>Можно выбрать клетку нажатием и нажать карточку справа.
+          Клавиши 1–4 выбирают карточку, стрелки — клетку,
+          Delete стирает, Enter проверяет.</p>
       </div>
     </details>
-    <button class="quiet" id="restart" type="button">
-      Начать заново ↻
+
+    <button class="art-button" id="restart" type="button"
+            aria-label="Начать заново">
+      <img id="restart-art" alt="Начать заново" draggable="false">
     </button>
   </div>
 
@@ -312,6 +475,39 @@ body.dragging,body.dragging *{cursor:grabbing!important}
 
 const EMPTY_COUNT=4;
 
+const ART={
+  background:'images/background.png',
+  zoya:'images/zoya.png',
+  rabbit:'images/rabbit.png',
+  umbrella:'images/umbrella.png',
+  bell:'images/bell.png',
+  castle:'images/castle.png',
+  help:'images/how-to-play.png',
+  restart:'images/restart.png'
+};
+
+const cards=[
+  {words:['Забавный','зайка'],image:'rabbit'},
+  {words:['Золотой','зонт'],image:'umbrella'},
+  {words:['Звонкий','звонок'],image:'bell'},
+  {words:['Загадочный','замок'],image:'castle'}
+];
+
+const $=id=>document.getElementById(id);
+
+$('mascot').setAttribute('src',ART.zoya);
+$('background').setAttribute('src',ART.background);
+$('help-art').setAttribute('src',ART.help);
+$('restart-art').setAttribute('src',ART.restart);
+
+let puzzle=null;
+let grid=[];
+let selected=-1;
+let won=false;
+let checked=false;
+let drag=null;
+let ignoreClickUntil=0;
+
 function shuffled(items){
   const a=[...items];
   for(let i=a.length-1;i>0;i--){
@@ -330,26 +526,27 @@ function related(a,b){
     );
 }
 
-function candidates(grid,index){
+function candidates(values,index){
   return [1,2,3,4].filter(value=>
-    !grid.some((v,i)=>
+    !values.some((v,i)=>
       i!==index && v===value && related(index,i)
     )
   );
 }
 
 function countSolutions(input,limit=2){
-  const grid=[...input];
+  const values=[...input];
   let total=0;
 
   function visit(){
     if(total>=limit)return;
 
-    let target=-1,options=[];
+    let target=-1;
+    let options=[];
 
     for(let i=0;i<16;i++){
-      if(!grid[i]){
-        const c=candidates(grid,i);
+      if(!values[i]){
+        const c=candidates(values,i);
         if(!c.length)return;
         if(target<0 || c.length<options.length){
           target=i;
@@ -364,18 +561,19 @@ function countSolutions(input,limit=2){
     }
 
     for(const value of options){
-      grid[target]=value;
+      values[target]=value;
       visit();
       if(total>=limit)break;
     }
-    grid[target]=0;
+
+    values[target]=0;
   }
 
   for(let i=0;i<16;i++){
     if(
-      grid[i]
-      && grid.some((v,j)=>
-        i!==j && v===grid[i] && related(i,j)
+      values[i]
+      && values.some((v,j)=>
+        i!==j && v===values[i] && related(i,j)
       )
     )return 0;
   }
@@ -415,55 +613,26 @@ function makePuzzle(blanks){
   throw Error('Не удалось создать поле. Попробуйте начать заново.');
 }
 
-function findConflicts(grid){
-  return grid.map((v,i)=>
-    v && grid.some((other,j)=>
+function findConflicts(values){
+  return values.map((v,i)=>
+    v && values.some((other,j)=>
       j!==i && other===v && related(i,j)
     ) ? i : -1
   ).filter(i=>i>=0);
 }
-
-const $=id=>document.getElementById(id);
-
-const ART={
-  background:'images/background.png',
-  zoya:'images/zoya.png',
-  rabbit:'images/rabbit.png',
-  umbrella:'images/umbrella.png',
-  bell:'images/bell.png',
-  castle:'images/castle.png'
-};
-
-$('mascot').setAttribute('src',ART.zoya);
-$('background').setAttribute('src',ART.background);
-
-const cards=[
-  {words:['Забавный','зайка'],image:'rabbit'},
-  {words:['Золотой','зонт'],image:'umbrella'},
-  {words:['Звонкий','звонок'],image:'bell'},
-  {words:['Загадочный','замок'],image:'castle'}
-];
-
-let puzzle=null;
-let grid=[];
-let selected=-1;
-let won=false;
-let checked=false;
-let drag=null;
-let ignoreClickUntil=0;
 
 function phrase(value){
   return cards[value-1].words.join(' ');
 }
 
 function cardMarkup(value,withCaption=true){
-  const c=cards[value-1];
+  const card=cards[value-1];
 
-  return `<img src="${ART[c.image]}" alt="" draggable="false">`
+  return `<img src="${ART[card.image]}" alt="" draggable="false">`
     +(withCaption
       ? `<span class="caption">
-           <span>${c.words[0]}</span>
-           <span>${c.words[1]}</span>
+           <span>${card.words[0]}</span>
+           <span>${card.words[1]}</span>
          </span>`
       : '');
 }
@@ -485,19 +654,19 @@ function startGame(){
   $('board').replaceChildren();
 
   for(let i=0;i<16;i++){
-    const b=document.createElement('button');
-    b.type='button';
-    b.className='cell';
+    const button=document.createElement('button');
+    button.type='button';
+    button.className='cell';
 
-    b.addEventListener('click',()=>{
+    button.addEventListener('click',()=>{
       if(Date.now()>=ignoreClickUntil)selectCell(i);
     });
 
-    b.addEventListener('pointerdown',event=>
-      beginDrag(event,b,i)
+    button.addEventListener('pointerdown',event=>
+      beginDrag(event,button,i)
     );
 
-    $('board').append(b);
+    $('board').append(button);
   }
 
   message('Назови словосочетание и перетащи карточку в светлую клетку.');
@@ -609,8 +778,11 @@ function beginDrag(event,element,source=-1,value=0){
   drag={
     id:event.pointerId,
     element,source,value,
-    x:event.clientX,y:event.clientY,
-    active:false,ghost:null,target:null
+    x:event.clientX,
+    y:event.clientY,
+    active:false,
+    ghost:null,
+    target:null
   };
 
   if(element.setPointerCapture){
@@ -624,7 +796,8 @@ function moveDrag(event){
   if(
     !drag.active
     && Math.hypot(
-      event.clientX-drag.x,event.clientY-drag.y
+      event.clientX-drag.x,
+      event.clientY-drag.y
     )<6
   )return;
 
@@ -668,6 +841,7 @@ function moveDrag(event){
 
   if(drag.target){
     const index=[...$('board').children].indexOf(drag.target);
+
     drag.target.classList.add(
       puzzle.givens[index] ? 'drop-blocked' : 'drop-target'
     );
@@ -696,9 +870,11 @@ function endDrag(event){
   if(!drag || drag.id!==event.pointerId)return;
 
   const old=drag;
+
   const target=old.active
     ? cellAt(event.clientX,event.clientY)
     : null;
+
   const index=target
     ? [...$('board').children].indexOf(target)
     : -1;
@@ -729,7 +905,7 @@ function erase(){
 }
 
 function check(){
-  if(won || grid.some(v=>!v))return;
+  if(won || grid.some(value=>!value))return;
 
   checked=true;
 
@@ -782,8 +958,10 @@ function render(){
       : '';
 
     cell.disabled=won;
+
     cell.setAttribute(
-      'aria-pressed',String(!won && selected===i)
+      'aria-pressed',
+      String(!won && selected===i)
     );
 
     cell.setAttribute(
@@ -794,7 +972,8 @@ function render(){
     );
   });
 
-  $('check').disabled=!won && grid.some(v=>!v);
+  $('check').disabled=!won && grid.some(value=>!value);
+
   $('check').textContent=won
     ? 'Играть снова ↻'
     : 'Проверить ✓';
@@ -810,32 +989,34 @@ function render(){
 }
 
 cards.forEach((card,i)=>{
-  const b=document.createElement('button');
+  const button=document.createElement('button');
 
-  b.type='button';
-  b.className='choice';
-  b.innerHTML=cardMarkup(i+1)
+  button.type='button';
+  button.className='choice';
+
+  button.innerHTML=cardMarkup(i+1)
     +`<small aria-hidden="true">${i+1}</small>`;
 
-  b.setAttribute(
+  button.setAttribute(
     'aria-label',
     `Перетащить или поставить: ${card.words.join(' ')}`
   );
 
-  b.addEventListener('click',()=>{
+  button.addEventListener('click',()=>{
     if(Date.now()>=ignoreClickUntil)place(i+1);
   });
 
-  b.addEventListener('pointerdown',event=>
-    beginDrag(event,b,-1,i+1)
+  button.addEventListener('pointerdown',event=>
+    beginDrag(event,button,-1,i+1)
   );
 
-  $('choices').append(b);
+  $('choices').append(button);
 });
 
 $('board').addEventListener('dragstart',event=>
   event.preventDefault()
 );
+
 $('choices').addEventListener('dragstart',event=>
   event.preventDefault()
 );
@@ -843,6 +1024,7 @@ $('choices').addEventListener('dragstart',event=>
 document.addEventListener(
   'pointermove',moveDrag,{passive:false}
 );
+
 document.addEventListener(
   'pointerup',endDrag,{passive:false}
 );
@@ -850,9 +1032,11 @@ document.addEventListener(
 document.addEventListener('pointercancel',event=>{
   if(drag?.id===event.pointerId)cancelDrag();
 });
+
 document.addEventListener('lostpointercapture',event=>{
   if(drag?.id===event.pointerId)cancelDrag();
 });
+
 document.addEventListener('visibilitychange',()=>{
   if(document.hidden)cancelDrag();
 });
@@ -901,7 +1085,9 @@ document.addEventListener('keydown',event=>{
   if(/^[1-4]$/.test(event.key)){
     event.preventDefault();
     place(Number(event.key));
-  }else if(event.key==='Delete' || event.key==='Backspace'){
+  }else if(
+    event.key==='Delete' || event.key==='Backspace'
+  ){
     event.preventDefault();
     erase();
   }else if(
@@ -911,12 +1097,17 @@ document.addEventListener('keydown',event=>{
     event.preventDefault();
 
     let i=selected<0 ? 0 : selected;
+
     const step={
-      ArrowLeft:-1,ArrowRight:1,ArrowUp:-4,ArrowDown:4
+      ArrowLeft:-1,
+      ArrowRight:1,
+      ArrowUp:-4,
+      ArrowDown:4
     }[event.key];
 
     for(let n=0;n<16;n++){
       i=(i+step+16)%16;
+
       if(!puzzle.givens[i]){
         selectCell(i);
         $('board').children[i].focus();
@@ -926,6 +1117,7 @@ document.addEventListener('keydown',event=>{
   }
 });
 
+// Проверяем наличие всех изображений.
 const missingAssets=new Set();
 
 const imagePreloads=Object.values(ART).map(src=>{
@@ -936,6 +1128,7 @@ const imagePreloads=Object.values(ART).map(src=>{
     else missingAssets.add(src);
 
     $('asset-warning').hidden=missingAssets.size===0;
+
     $('asset-warning').textContent=missingAssets.size
       ? 'Проверь картинки: '+[...missingAssets].join(', ')
       : '';
